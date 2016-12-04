@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * {
+      font-family: 'Open Sans', 'Lato', 'Helvetica', sans-serif;
+    }
+    
+    #temperature {
+      font-weight: 100;
+      font-size: 36pt;
+      line-height: 0pt;
+    }
+    
+    #cityname {
+      text-transform: uppercase;
+      font-size: 10pt;
+      font-weight: 700;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  
+  <h1 id="header"> Nice Weather!</h1>
+  <form id = "form">
+    <input type = "text" id = "city" placeholder = "City" />
+    <input type = "submit" id = "submit"  />
+    </form>
+  <div id = "results">
+  <p class = "cityname"></p>
+  <p class = "temperature"></p>
+  </div>
+</body>
+
+
+<script>
+function getWeather(e)
+{
+  e.preventDefault();
+  //alert("this button works BRAH!");
+  //alert($("#header").html());
+  var name = $("#city").val();
+  //alert(name);
+  var url = "http://api.openweathermap.org/data/2.5/weather?q=" + name + "&appid=13194352b2cc1d1c08324169d57b6f2f";
+  $("#results").append($('<p class="cityname"></p>').html(name));
+  $.ajax(url, {
+   
+   success: function(data){
+     var temperature = convertKtoF(data.main.temp).toFixed(2);
+   $("#results").append($('<p class = "temperature"></p>').html(temperature));
+     $("#temperature").html(convertKtoF(data.main.temp).toFixed(2) + " °F");
+   },
+   
+   error: function(error){
+     console.log(error);     
+   }
+   
+ });
+  //console.log("hello");
+}
+//jquery is the dollar sign
+//can use only if you added the jquery library
+
+function convertKtoF(kelvin)
+{
+  //i can use kelvin anwhere under here
+  // for example convert KtoF(100)
+  return 9/5 * (kelvin - 273) + 32;
+}
+
+$('#form').submit(getWeather);
+</script>
+
+
+</html>
