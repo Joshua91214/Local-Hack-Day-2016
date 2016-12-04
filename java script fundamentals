@@ -1,0 +1,12 @@
+
+var newObject = 
+    {
+      property: "value"
+    };
+
+console.log(newObject.property);
+
+newObject.property = 3;
+newObject.newProperty = 42;
+console.log(newObject.property);
+console.log(newObject.newProperty);
